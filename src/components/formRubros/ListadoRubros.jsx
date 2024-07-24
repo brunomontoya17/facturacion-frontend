@@ -26,7 +26,7 @@ function ListadoRubros() {
             next = next.rubroPadre;
         }
         return (<ol>
-            {jerarquia.map( el => <li>{el}</li>)}
+            {jerarquia.map( (el,index) => <li key={index}>{el}</li>)}
         </ol>);
     }
 

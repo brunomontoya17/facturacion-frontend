@@ -16,15 +16,11 @@ import SubRubroSelectorField from './fieldsComponents/SubRubroSelectorField';
 function FormBaseProductos(props) {
 
     const [producto, setProducto, EmptyProducto,
-        rubros, subrubros, marcas,
-        subrubroField, setSubrubroField,
-        manejoStock, setManejoStock, 
-        EmptySubRubro, EmptyMarca, EmptyPlanilla,
-        lastAddSelectedRubro, lastAddSelectedMarca] = [...useContext(ProductoContext)];
+        rubros, marcas, manejoStock, setManejoStock, 
+        EmptyMarca, EmptyPlanilla, lastAddSelectedRubro, lastAddSelectedMarca] = [...useContext(ProductoContext)];
 
     const navigate = useNavigate();
     const { id } = useParams();
-    const changedRubro = useRef(false);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -39,8 +35,6 @@ function FormBaseProductos(props) {
                     console.log(response.data);
                     let dataResp = {...response.data};
                     console.log(dataResp);
-                    if (dataResp.subRubro == null) 
-                        dataResp.subRubro = new EmptySubRubro();
                     if (dataResp.marca == null)
                         dataResp.marca = new EmptyMarca();
                     if (dataResp.planillaStock == null) {
@@ -55,20 +49,10 @@ function FormBaseProductos(props) {
         return () => controller.abort();
     }, [props.behavior])
 
-    useEffect(() => {
-        const listaSubRubrosByRubro = subrubros.filter((subrub) =>
-            subrub.rubroPadre.idRubro === producto.rubro.idRubro
-        )
-        console.log(listaSubRubrosByRubro);
-        setSubrubroField([new EmptySubRubro(), ...listaSubRubrosByRubro]);
-    }, [producto.rubro])
-
     const agregarProducto = (e) => {
         e.preventDefault();
         lastAddSelectedRubro.current = producto.rubro;
         lastAddSelectedMarca.current = producto.marca;
-        if (producto.subRubro.idSubRubro === 0)
-            producto.subRubro = null;
         if (producto.marca.idMarca === 0)
             producto.marca = null;
         if (manejoStock)
@@ -83,8 +67,6 @@ function FormBaseProductos(props) {
 
     const modificarProducto = (e) => {
         e.preventDefault();
-        if (producto.subRubro.idSubRubro === 0)
-            producto.subRubro = null;
         if (producto.marca.idMarca === 0)
             producto.marca = null;
         if (producto.planillaStock.idPlanillaStock === 0)
@@ -114,7 +96,6 @@ function FormBaseProductos(props) {
                 <DescField />
                 <PriceField />
                 <RubroSelectorField />
-                <SubRubroSelectorField />
                 <MarcaSelectorField />
                 <PlanillaStockField />
                 {(() => {

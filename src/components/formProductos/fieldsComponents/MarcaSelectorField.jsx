@@ -5,11 +5,8 @@ import { ProductoContext } from "../ProductoContext";
 function MarcaSelectorField() {
 
     const [producto, setProducto, EmptyProducto,
-        rubros, subrubros, marcas,
-        subrubroField, setSubrubroField,
-        manejoStock, setManejoStock, 
-        EmptySubRubro, EmptyMarca, EmptyPlanilla,
-        lastAddSelectedRubro, lastAddSelectedMarca] = [...useContext(ProductoContext)];
+        rubros, marcas, manejoStock, setManejoStock, 
+        EmptyMarca, EmptyPlanilla, lastAddSelectedRubro, lastAddSelectedMarca] = [...useContext(ProductoContext)];
 
     const marcaField = [new EmptyMarca(),...marcas]
     return (

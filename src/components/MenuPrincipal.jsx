@@ -16,7 +16,7 @@ function MenuPrincipal() {
                         <Nav className="me-auto">
                             <Nav.Link as={Link} to="/">Home</Nav.Link>
                             <NavDropdown title="Productos" id="basic-nav-dropdown">
-                                <NavDropdown.Item as={Link} to="/productos">Listado de Productos</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/productos/per100page/1">Listado de Productos</NavDropdown.Item>
                                 <NavDropdown.Item as={Link} to="/productos/insert">Agregar Producto</NavDropdown.Item>
                             </NavDropdown>
                             <NavDropdown title="Rubros" id="basic-nav-dropdown">

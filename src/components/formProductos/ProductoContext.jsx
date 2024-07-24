@@ -1,8 +1,6 @@
 import { createContext } from "react";
 import { useState, useEffect, useRef } from "react";
 import RubroService from "../../services/RubroService";
-import SubRubroService from "../../services/SubRubroService";
-
 import MarcaService from "../../services/MarcaService";
 
 export const ProductoContext = createContext();
@@ -16,19 +14,8 @@ export function ProductoProvider({ children }) {
         this.descripcion = '';
         this.precio = 0.0;
         this.rubro = lastAddSelectedRubro.current;
-        this.subRubro = new EmptySubRubro();
         this.marca = new EmptyMarca();
         this.planillaStock = new EmptyPlanilla();
-    }
-
-    function EmptySubRubro() {
-        this.idSubRubro = 0;
-        this.nombreSubRubro = 'Sin SubRubro';
-        this.descripcion = '';
-        this.rubroPadre = {
-            nombreRubro: '',
-            descripcion: ''
-        };
     }
 
     function EmptyMarca()
@@ -51,9 +38,6 @@ export function ProductoProvider({ children }) {
         RubroService.getRubros(controller).then
             (response => setRubros(response.data)).catch
             (error => console.log(error));
-        SubRubroService.getSubRubros(controller).then
-            (response => setSubrubros(response.data)).catch
-            (error => console.log(error));
         MarcaService.getMarcas(controller).then
             (response => setMarcas(response.data)).catch
             (error => console.log(error));
@@ -61,8 +45,6 @@ export function ProductoProvider({ children }) {
     }, [])
     
     const [rubros, setRubros] = useState([]);
-    const [subrubros, setSubrubros] = useState([]);
-    const [subrubroField, setSubrubroField] = useState([]);
     const [marcas, setMarcas] = useState([]);
 
     const lastAddSelectedRubro = useRef({});
@@ -76,11 +58,8 @@ export function ProductoProvider({ children }) {
 
     return (
         <ProductoContext.Provider value={[producto, setProducto, EmptyProducto,
-            rubros, subrubros, marcas,
-            subrubroField, setSubrubroField,
-            manejoStock, setManejoStock, 
-            EmptySubRubro, EmptyMarca, EmptyPlanilla,
-            lastAddSelectedRubro, lastAddSelectedMarca]}>
+            rubros, marcas, manejoStock, setManejoStock, 
+            EmptyMarca, EmptyPlanilla, lastAddSelectedRubro, lastAddSelectedMarca]}>
             {children}
         </ProductoContext.Provider>
     )

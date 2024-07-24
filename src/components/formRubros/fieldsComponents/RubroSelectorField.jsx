@@ -29,7 +29,7 @@ function RubroSelectorField() {
             }
         }
         return (<ol>
-            {jerarquia.map( el => <li>{el}</li>)}
+            {jerarquia.map( (el,index) => <li key={index+1}>{el}</li>)}
         </ol>);
     }
 
@@ -37,7 +37,7 @@ function RubroSelectorField() {
         <Container>
             <Row>
                 <Col></Col>
-                <Col>{(writeJerarquia(rubro.rubroPadre))}</Col>
+                <Col>{(writeJerarquia((rubro.rubroPadre)))}</Col>
             </Row>
             <Row>
                 <Col><label htmlFor="selRubro">Rubro:</label>

@@ -6,7 +6,7 @@ import ListadoRubros from "./components/formRubros/ListadoRubros";
 
 import ListadoMarcas from "./components/formMarcas/ListadoMarcas";
 import FormBaseRubros from "./components/formRubros/FormBaseRubros";
-import { Behavior, typesEnte } from "./logics/config";
+import { Behavior, typesEnte, typesPages } from "./logics/config";
 import { RubroProvider } from "./components/formRubros/RubroContext";
 
 import { MarcaProvider } from "./components/formMarcas/MarcaContext";
@@ -30,7 +30,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Fragment />} />
             <Route path="/productos" element={<ProductoProvider><Outlet /></ProductoProvider>}>
-              <Route path="/productos" element={<ListadoProductos />} />
+              <Route path="/productos/per100page/:page" element={<ListadoProductos pagesize={typesPages.one_hundred} />} />
+              <Route path="/productos/per50page/:page" element={<ListadoProductos pagesize={typesPages.fifty}/>} />
+              <Route path="/productos/per25page/:page" element={<ListadoProductos pagesize={typesPages.twenty_five}/>} />
               <Route path="/productos/:id" element={<VisadoProducto />} />
               <Route path="/productos/insert" element={<FormBaseProductos behavior={Behavior.agregar} />} />
               <Route path="/productos/update/:id" element={<FormBaseProductos behavior={Behavior.modificar} />} />

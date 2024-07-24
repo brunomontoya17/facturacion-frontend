@@ -16,6 +16,18 @@ class ProductoService {
     {
         return axios.get(`${PATH_TO_SERVER}/bybarcode/${barcode}`,{signal:controller.signal});
     }
+    getProductosx100(page,controller)
+    {
+        return axios.get(`${PATH_TO_SERVER}/per100page/${page}`,{signal:controller.signal});
+    }
+    getProductosx50(page,controller)
+    {
+        return axios.get(`${PATH_TO_SERVER}/per50page/${page}`,{signal:controller.signal});
+    }
+    getProductosx25(page,controller)
+    {
+        return axios.get(`${PATH_TO_SERVER}/per25page/${page}`,{signal:controller.signal});
+    }
     addProducto(producto)
     {
         return axios.post(`${PATH_TO_SERVER}/insert`,producto);

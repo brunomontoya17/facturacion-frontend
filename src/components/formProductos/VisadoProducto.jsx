@@ -7,12 +7,9 @@ import { useContext, useEffect, useRef, useState } from 'react';
 
 function VisadoProducto() {
 
-    const [producto, setProducto, ,
-        , , ,
-        , ,
-        , ,
-        EmptySubRubro, EmptyMarca, EmptyPlanilla,
-        ,] = [...useContext(ProductoContext)];
+    const [producto, setProducto, EmptyProducto,
+        rubros, marcas, manejoStock, setManejoStock, 
+        EmptyMarca, EmptyPlanilla, lastAddSelectedRubro, lastAddSelectedMarca]= [...useContext(ProductoContext)];
 
     const { id } = useParams();
 
@@ -26,9 +23,6 @@ function VisadoProducto() {
             ((response) => {
 
                 let dataResp = { ...response.data };
-
-                if (dataResp.subRubro == null)
-                    dataResp.subRubro = new EmptySubRubro();
                 if (dataResp.marca == null)
                     dataResp.marca = new EmptyMarca();
                 if (dataResp.planillaStock == null) {
@@ -62,10 +56,6 @@ function VisadoProducto() {
                 <Row>
                     <Col><label>Rubro:</label></Col>
                     <Col><label>{producto.rubro.nombreRubro}</label></Col>
-                </Row>
-                <Row>
-                    <Col><label>SubRubro:</label></Col>
-                    <Col><label>{producto.subRubro.nombreSubRubro}</label></Col>
                 </Row>
                 <Row>
                     <Col><label>Marca:</label></Col>

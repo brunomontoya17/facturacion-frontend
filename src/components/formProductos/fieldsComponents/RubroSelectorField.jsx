@@ -5,11 +5,8 @@ import { ProductoContext } from "../ProductoContext";
 function RubroSelectorField() {
 
     const [producto, setProducto, EmptyProducto,
-        rubros, subrubros, marcas,
-        subrubroField, setSubrubroField,
-        manejoStock, setManejoStock, 
-        EmptySubRubro, EmptyMarca, EmptyPlanilla,
-        lastAddSelectedRubro, lastAddSelectedMarca] = [...useContext(ProductoContext)];
+        rubros, marcas, manejoStock, setManejoStock, 
+        EmptyMarca, EmptyPlanilla, lastAddSelectedRubro, lastAddSelectedMarca] = [...useContext(ProductoContext)];
     return (
         <Row>
             <Col><label htmlFor="selRubro">Rubro:</label></Col>

@@ -35,7 +35,7 @@ function FacturacionConsFinal() {
     const billDate = new Date().toLocaleString();
     const iditem = useRef(0);
     const [emptyItem, setEmptyItem] = useState(ItemVacio)
-    //const activeRun = useRef(false);
+
     const [activeRun, setActiveRun] = useState(false)
     const [rows, setRows] = useState([]);
     const [items, setItems] = useState([]);
@@ -153,7 +153,7 @@ const onChangeInput = (e, employeeId) => {
         FacturacionService.generateFactura(FacturaAEmitir).then
         (response => console.log(response)).catch
         (error => console.log(error));
-        navigate("/productos");
+        navigate("/");
     }
 
     return (
