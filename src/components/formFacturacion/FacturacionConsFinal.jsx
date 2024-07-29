@@ -53,7 +53,6 @@ function FacturacionConsFinal() {
 
 
     const onChangeInput = (e, itemid) => {
-        e.preventDefault();
         const { name, value } = e.target;
         console.log('name', name);
         console.log('value', value);
@@ -121,12 +120,6 @@ function FacturacionConsFinal() {
             e.preventDefault();
             setActiveRun(true);
         }
-        /*
-        setEmptyItem(({
-            ...emptyItem,
-            codigoDeBarras: e.target.value,
-        }))
-        e.stopPropagation();*/
     }
 
     const emitirFactura = (e) => {
@@ -158,8 +151,6 @@ function FacturacionConsFinal() {
             </Container>
             <Container>
                 <form onSubmit={emitirFactura}>
-
-
                     <Table>
                         <thead>
                             <tr>
@@ -175,11 +166,15 @@ function FacturacionConsFinal() {
                                 items.map((it) => {
                                     return (<tr key={it.id}>
                                         <td><input id={`barcode-${it.id}`} name='codigoDeBarras' type="text" value={it.codigoDeBarras} readOnly /></td>
-                                        <td><input id={`quantity-${it.id}`} name='cantidad' type="number" value={it.cantidad} onChange={(e) => {
+                                        <td><input id={`quantity-${it.id}`} name='cantidad' type="number" value={it.cantidad} 
+                                        onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
+                                        onChange={(e) => {
                                             onChangeInput(e, it.id);
                                         }} /></td>
                                         <td><input id={`detail-${it.id}`} name='nombreProducto' type="text" value={it.nombreProducto} readOnly /></td>
-                                        <td><input id={`price-${it.id}`} name='precio' type="number" value={it.precio} onChange={(e) => {
+                                        <td><input id={`price-${it.id}`} name='precio' type="number" value={it.precio} 
+                                        onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
+                                        onChange={(e) => {
                                             onChangeInput(e, it.id);
                                         }} /></td>
                                         <td><input id={`subtotal-${it.id}`} name='subtotal' type="text" value={it.cantidad * it.precio} readOnly /></td>
