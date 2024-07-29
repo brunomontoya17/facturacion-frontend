@@ -9,6 +9,15 @@ class MarcaService {
     getMarcaByID (id,controller){
         return axios.get(`${PATH_TO_SERVER}/${id}`,{signal:controller.signal});
     }
+    getMarcasx50(page,controller){
+        return axios.get(`${PATH_TO_SERVER}/per50page/${page}`,{signal:controller.signal});
+    }
+    getMarcasx25(page,controller){
+        return axios.get(`${PATH_TO_SERVER}/per25page/${page}`,{signal:controller.signal});
+    }
+    getMarcasx10(page,controller){
+        return axios.get(`${PATH_TO_SERVER}/per10page/${page}`,{signal:controller.signal});
+    }
     addMarca (marca){
         return axios.post(`${PATH_TO_SERVER}/insert`,marca);
     }

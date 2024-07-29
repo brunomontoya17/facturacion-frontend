@@ -6,7 +6,7 @@ import ListadoRubros from "./components/formRubros/ListadoRubros";
 
 import ListadoMarcas from "./components/formMarcas/ListadoMarcas";
 import FormBaseRubros from "./components/formRubros/FormBaseRubros";
-import { Behavior, typesEnte, typesPages } from "./logics/config";
+import { Behavior, typePagesRyM, typesEnte, typesPages } from "./logics/config";
 import { RubroProvider } from "./components/formRubros/RubroContext";
 
 import { MarcaProvider } from "./components/formMarcas/MarcaContext";
@@ -38,12 +38,16 @@ function App() {
               <Route path="/productos/update/:id" element={<FormBaseProductos behavior={Behavior.modificar} />} />
             </Route>
             <Route path="/rubros" element={<RubroProvider><Outlet /></RubroProvider>}>
-              <Route exact path="/rubros/" element={<ListadoRubros />} />
+              <Route exact path="/rubros/per50page/:page" element={<ListadoRubros pagesize={typePagesRyM.fifty} />} />
+              <Route exact path="/rubros/per25page/:page" element={<ListadoRubros pagesize={typePagesRyM.twenty_five} />} />
+              <Route exact path="/rubros/per10page/:page" element={<ListadoRubros pagesize={typePagesRyM.ten} />} />
               <Route exact path="/rubros/insert" element={<FormBaseRubros behavior={Behavior.agregar} />} />
               <Route exact path="/rubros/update/:id" element={<FormBaseRubros behavior={Behavior.modificar} />} />
             </Route>
             <Route path="/marcas" element={<MarcaProvider><Outlet /></MarcaProvider>}>
-              <Route path="/marcas" element={<ListadoMarcas />} />
+              <Route path="/marcas/per50page/:page" element={<ListadoMarcas pagesize={typePagesRyM.fifty}/>} />
+              <Route path="/marcas/per25page/:page" element={<ListadoMarcas pagesize={typePagesRyM.twenty_five}/>} />
+              <Route path="/marcas/per10page/:page" element={<ListadoMarcas pagesize={typePagesRyM.ten}/>} />
               <Route path="/marcas/insert" element={<FormBaseMarcas behavior={Behavior.agregar} />} />
               <Route path="/marcas/update/:id" element={<FormBaseMarcas behavior={Behavior.modificar} />} />
             </Route>

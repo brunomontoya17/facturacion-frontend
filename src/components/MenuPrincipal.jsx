@@ -20,11 +20,11 @@ function MenuPrincipal() {
                                 <NavDropdown.Item as={Link} to="/productos/insert">Agregar Producto</NavDropdown.Item>
                             </NavDropdown>
                             <NavDropdown title="Rubros" id="basic-nav-dropdown">
-                                <NavDropdown.Item as={Link} to="/rubros">Listado de Rubros</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/rubros/per50page/1">Listado de Rubros</NavDropdown.Item>
                                 <NavDropdown.Item as={Link} to="/rubros/insert">Agregar Rubro</NavDropdown.Item>
                             </NavDropdown>
                             <NavDropdown title="Marcas" id="basic-nav-dropdown">
-                                <NavDropdown.Item as={Link} to="/marcas">Listado de Marcas</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/marcas/per50page/1">Listado de Marcas</NavDropdown.Item>
                                 <NavDropdown.Item as={Link} to="/marcas/insert">Agregar Marca</NavDropdown.Item>
                             </NavDropdown>
                             <NavDropdown title="Entes" id="basic-nav-dropdown">

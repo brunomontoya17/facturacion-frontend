@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import ProductoService from "../../services/ProductoService";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import PlanillaStockModal from "./modalsComponents/PlanillaStockModal";
-import PageViewerField from "./fieldsComponents/PageViewerField";
+import PageViewerField from "../generalComponents/PageViewerField";
 import { typesPages } from "../../logics/config";
 import { Container, Col, Row } from "react-bootstrap";
 
