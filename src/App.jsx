@@ -6,7 +6,7 @@ import ListadoRubros from "./components/formRubros/ListadoRubros";
 
 import ListadoMarcas from "./components/formMarcas/ListadoMarcas";
 import FormBaseRubros from "./components/formRubros/FormBaseRubros";
-import { Behavior, typePagesRyM, typesEnte, typesPages } from "./logics/config";
+import { Behavior, BillBhvr, typePagesRyM, typesEnte, typesPages } from "./logics/config";
 import { RubroProvider } from "./components/formRubros/RubroContext";
 
 import { MarcaProvider } from "./components/formMarcas/MarcaContext";
@@ -17,7 +17,9 @@ import { ClieProvProvider } from "./components/formClientesProveedores/ClieProvC
 import FormBaseClieProv from "./components/formClientesProveedores/FormBaseClieProv";
 import ListadoEntes from "./components/formClientesProveedores/ListadoEntes";
 import VisadoProducto from "./components/formProductos/VisadoProducto";
-import FacturacionConsFinal from "./components/formFacturacion/FacturacionConsFinal";
+import Facturacion from "./components/formFacturacion/Facturacion";
+import VerListaFacturas from "./components/formFacturacion/VerListaFacturas";
+import VisadoFactura from "./components/formFacturacion/VisadoFactura";
 
 function App() {
 
@@ -58,7 +60,10 @@ function App() {
               <Route path="/entes/clientes/update/:id" element={<FormBaseClieProv behavior={Behavior.modificar} entidad={typesEnte.cliente}/>}/>
               <Route path="/entes/proveedores/update/:id" element={<FormBaseClieProv behavior={Behavior.modificar} entidad={typesEnte.proveedor}/>}/>
             </Route>
-            <Route path="/fact-cons-final" element={<FacturacionConsFinal/>} />
+            <Route path="/fact-cons-final" element={<Facturacion behavior={BillBhvr.consfin}/>} />
+            <Route path="/fact-cliente" element={<Facturacion behavior={BillBhvr.cliente}/>} />
+            <Route path="/ver-facturas" element={<VerListaFacturas />} />
+            <Route path="/ver-facturas/:id" element={<VisadoFactura />} />
           </Routes>
 
         </div>

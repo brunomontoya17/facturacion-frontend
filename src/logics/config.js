@@ -3,6 +3,11 @@ const Behavior = {
     modificar:"modificar"
 }
 
+const BillBhvr = {
+    cliente:"Cliente",
+    consfin:"Consumidor Final"
+}
+
 const typesEnte= {
     cliente:'Cliente',
     proveedor:'Proveedor'
@@ -41,4 +46,4 @@ const typePagesRyM = {
     }
 }
 
-export { Behavior, typesEnte, typesPages, typePagesRyM }
+export { Behavior, BillBhvr, typesEnte, typesPages, typePagesRyM }

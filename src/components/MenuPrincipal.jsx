@@ -34,8 +34,8 @@ function MenuPrincipal() {
                             </NavDropdown>
                             <NavDropdown title="Facturacion" id="basic-nav-dropdown">
                                 <NavDropdown.Item as={Link} to="/fact-cons-final">Facturacion Consumidor Final</NavDropdown.Item>
-                                <NavDropdown.Item as={Link} to="/">Facturacion Clientes</NavDropdown.Item>
-                                <NavDropdown.Item as={Link} to="/">Ver Facturas</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/fact-cliente">Facturacion Clientes</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/ver-facturas">Ver Facturas</NavDropdown.Item>
                             </NavDropdown>
                             <NavDropdown title="Manejo de Stock" id="basic-nav-dropdown">
                                 <NavDropdown.Item as={Link} to="/">Crear Entrada Stock</NavDropdown.Item>

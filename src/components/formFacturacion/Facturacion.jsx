@@ -2,11 +2,13 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Col, Container, Row, Table } from 'react-bootstrap'
 import ProductoService from '../../services/ProductoService';
 import FacturacionService from '../../services/FacturacionService'
+import ClienteService from '../../services/ClienteService';
 import RowItem from './RowItem';
 import { act } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BillBhvr } from '../../logics/config';
 
-function FacturacionConsFinal() {
+function FacturacionConsFinal(props) {
     const ConsumidorFinal = {
         idCliente: -1,
         nombreCompleto: 'Consumidor Final',
@@ -42,6 +44,11 @@ function FacturacionConsFinal() {
     const [prod, setProd] = useState({});
     const [total, setTotal] = useState(0);
 
+    const [cliente, setCliente] = useState({});
+    const [listadoClientes, setListadoClientes] = useState([]);
+    const [idFactNueva, setIdFactNueva] = useState(0);
+    const [exitForm, setExitForm] = useState(false);
+
     function crearItem(itemid, producto, codigoDeBarras, nombreProducto, precio) {
         this.id = itemid;
         this.producto = producto;
@@ -64,7 +71,26 @@ function FacturacionConsFinal() {
 
 
 
+    useEffect(() => {
+        const controller = new AbortController();
+        if (props.behavior == BillBhvr.cliente) {
+            ClienteService.getClientes(controller).then
+                ((response) => {
+                    const listado = response.data.map((clie) => {
+                        if (clie.deAlta)
+                            return clie;
+                    });
+                    setListadoClientes(listado);
+                    setCliente(listado[0]);
+                }).catch
+                (error => console.log(error));
+        }
+        else {
+            setCliente(ConsumidorFinal);
+        }
 
+        return () => controller.abort();
+    }, [props.behavior])
 
 
     useEffect(() => {
@@ -126,27 +152,48 @@ function FacturacionConsFinal() {
         e.preventDefault();
         console.log(items);
         FacturaAEmitir.items = items;
+        if (props.behavior == BillBhvr.cliente) {
+            FacturaAEmitir.cliente = cliente;
+        } 
         FacturacionService.generateFactura(FacturaAEmitir).then
-            (response => console.log(response)).catch
+            (response => {
+                setExitForm(true);
+                setIdFactNueva(response.data);
+            }).catch
             (error => console.log(error));
-        navigate("/");
     }
+
+    useEffect (() => {
+        if (exitForm)
+            navigate(`/ver-facturas/${idFactNueva}`);
+    },[idFactNueva])
 
     return (
         <Container>
             <Row>
-                <h2>Facturacion a {ConsumidorFinal.nombreCompleto}</h2>
+                <Col><h2>Facturacion a {cliente.nombreCompleto}</h2></Col>
+                { props.behavior == BillBhvr.cliente ? <Col><label htmlFor='sel-cliente'>Elige cliente:</label><select id="sel-cliente" className='form-select' value={JSON.stringify(cliente)}
+                        onChange={(e) => {
+                            setCliente(JSON.parse(e.target.value));
+                        }}>
+                            {
+                                listadoClientes.map((clie) => {
+                                    return <option key={clie.idCliente} value={JSON.stringify(clie)}>{clie.nombreCompleto}</option>
+                                })
+                            }
+                    </select></Col> : <></> }
+                
             </Row>
             <Container>
                 <Row>
                     <Col>Fecha: {billDate}</Col>
-                    <Col>Nombre Completo: {ConsumidorFinal.nombreCompleto}</Col>
-                    <Col>Cuil/Cuit/Dni: {ConsumidorFinal.cuilDNI}</Col>
+                    <Col>Nombre Completo: {cliente.nombreCompleto}</Col>
+                    <Col>Cuil/Cuit/Dni: {cliente.cuilDNI}</Col>
                 </Row>
                 <Row>
-                    <Col>Direccion: {ConsumidorFinal.direccion}</Col>
-                    <Col>Telefono: {ConsumidorFinal.telefono}</Col>
-                    <Col>Email: {ConsumidorFinal.email}</Col>
+                    <Col>Direccion: {cliente.direccion}</Col>
+                    <Col>Telefono: {cliente.telefono}</Col>
+                    <Col>Email: {cliente.email}</Col>
                 </Row>
             </Container>
             <Container>
@@ -166,17 +213,17 @@ function FacturacionConsFinal() {
                                 items.map((it) => {
                                     return (<tr key={it.id}>
                                         <td><input id={`barcode-${it.id}`} name='codigoDeBarras' type="text" value={it.codigoDeBarras} readOnly /></td>
-                                        <td><input id={`quantity-${it.id}`} name='cantidad' type="number" value={it.cantidad} 
-                                        onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
-                                        onChange={(e) => {
-                                            onChangeInput(e, it.id);
-                                        }} /></td>
+                                        <td><input id={`quantity-${it.id}`} name='cantidad' type="number" value={it.cantidad}
+                                            onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
+                                            onChange={(e) => {
+                                                onChangeInput(e, it.id);
+                                            }} /></td>
                                         <td><input id={`detail-${it.id}`} name='nombreProducto' type="text" value={it.nombreProducto} readOnly /></td>
-                                        <td><input id={`price-${it.id}`} name='precio' type="number" value={it.precio} 
-                                        onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
-                                        onChange={(e) => {
-                                            onChangeInput(e, it.id);
-                                        }} /></td>
+                                        <td><input id={`price-${it.id}`} name='precio' type="number" value={it.precio}
+                                            onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
+                                            onChange={(e) => {
+                                                onChangeInput(e, it.id);
+                                            }} /></td>
                                         <td><input id={`subtotal-${it.id}`} name='subtotal' type="text" value={it.cantidad * it.precio} readOnly /></td>
                                     </tr>)
                                 })
