@@ -38,7 +38,7 @@ function MenuPrincipal() {
                                 <NavDropdown.Item as={Link} to="/ver-facturas">Ver Facturas</NavDropdown.Item>
                             </NavDropdown>
                             <NavDropdown title="Manejo de Stock" id="basic-nav-dropdown">
-                                <NavDropdown.Item as={Link} to="/">Crear Entrada Stock</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/ingresar-entrada-stock">Crear Entrada Stock</NavDropdown.Item>
                                 <NavDropdown.Item as={Link} to="/">Crear Salida Stock</NavDropdown.Item>
                                 <NavDropdown.Item as={Link} to="/">Ver Entradas</NavDropdown.Item>
                                 <NavDropdown.Item as={Link} to="/">Ver Salidas</NavDropdown.Item>

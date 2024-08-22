@@ -28,6 +28,9 @@ class ProductoService {
     {
         return axios.get(`${PATH_TO_SERVER}/per25page/${page}`,{signal:controller.signal});
     }
+    getCodigoProdXProv(idprod,idprov,controller){
+        return axios.get(`${PATH_TO_SERVER}/codProdProv/${idprov}/${idprod}`,{signal:controller.signal});
+    }
     addProducto(producto)
     {
         return axios.post(`${PATH_TO_SERVER}/insert`,producto);
@@ -35,6 +38,9 @@ class ProductoService {
     updateProducto(producto)
     {
         return axios.post(`${PATH_TO_SERVER}/update/${producto.idProducto}`,producto);
+    }
+    addProviderCodesList(listaCodProdProv){
+        return axios.post(`${PATH_TO_SERVER}/codProdProv/multi-insert`,listaCodProdProv);
     }
 
 }

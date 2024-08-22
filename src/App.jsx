@@ -20,6 +20,7 @@ import VisadoProducto from "./components/formProductos/VisadoProducto";
 import Facturacion from "./components/formFacturacion/Facturacion";
 import VerListaFacturas from "./components/formFacturacion/VerListaFacturas";
 import VisadoFactura from "./components/formFacturacion/VisadoFactura";
+import EntradaStock from "./components/formEySdeStock/EntradaStock";
 
 function App() {
 
@@ -64,6 +65,7 @@ function App() {
             <Route path="/fact-cliente" element={<Facturacion behavior={BillBhvr.cliente}/>} />
             <Route path="/ver-facturas" element={<VerListaFacturas />} />
             <Route path="/ver-facturas/:id" element={<VisadoFactura />} />
+            <Route path="/ingresar-entrada-stock" element={<EntradaStock />} />
           </Routes>
 
         </div>

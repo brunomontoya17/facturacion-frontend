@@ -3,8 +3,6 @@ import { Col, Container, Row, Table } from 'react-bootstrap'
 import ProductoService from '../../services/ProductoService';
 import FacturacionService from '../../services/FacturacionService'
 import ClienteService from '../../services/ClienteService';
-import RowItem from './RowItem';
-import { act } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BillBhvr } from '../../logics/config';
 
@@ -35,12 +33,13 @@ function FacturacionConsFinal(props) {
 
     const navigate = useNavigate();
     const billDate = new Date().toLocaleString();
-    const iditem = useRef(0);
+    
     const [emptyItem, setEmptyItem] = useState(ItemVacio)
 
     const [activeRun, setActiveRun] = useState(false)
     const [items, setItems] = useState([]);
 
+    const iditem = useRef(0);
     const [prod, setProd] = useState({});
     const [total, setTotal] = useState(0);
 
@@ -68,7 +67,11 @@ function FacturacionConsFinal(props) {
         );
         setItems(editData);
     }
-
+ 
+    const deleteItem = (itemid) => {
+        const editData = items.filter( it => it.id !== itemid);
+        setItems(editData);
+    }
 
 
     useEffect(() => {
@@ -198,7 +201,7 @@ function FacturacionConsFinal(props) {
             </Container>
             <Container>
                 <form onSubmit={emitirFactura}>
-                    <Table>
+                    <Table className="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>Codigo:</th>
@@ -206,6 +209,7 @@ function FacturacionConsFinal(props) {
                                 <th>Detalle:</th>
                                 <th>Precio unitario:</th>
                                 <th>Subtotal:</th>
+                                <td>Borrar Item:</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -225,6 +229,9 @@ function FacturacionConsFinal(props) {
                                                 onChangeInput(e, it.id);
                                             }} /></td>
                                         <td><input id={`subtotal-${it.id}`} name='subtotal' type="text" value={it.cantidad * it.precio} readOnly /></td>
+                                        <td><button id={`delete-${it.id}`} onClick={() => {
+                                            deleteItem(it.id);
+                                        }}>Borrar</button></td>
                                     </tr>)
                                 })
                             }
@@ -234,6 +241,7 @@ function FacturacionConsFinal(props) {
                                 <td><input id={`detail-add`} type="text" value={''} readOnly /></td>
                                 <td><input id={`price-add`} type="number" value={0} readOnly /></td>
                                 <td><input id={`subtotal-add`} type="text" value={''} readOnly /></td>
+                                <td></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -243,6 +251,7 @@ function FacturacionConsFinal(props) {
                                 <td></td>
                                 <td>Importe total:</td>
                                 <td>{total}</td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </Table>
